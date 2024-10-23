@@ -61,7 +61,7 @@ const LoginForm = () => {
         setFormFieldState(prevState => ({
           ...prevState, 
           userFieldValue: e.target.value, 
-          hasErrorPasswordFieldValue: false,
+          hasErrorUserFieldValue: false,
         }));
       }
     },
