@@ -1,171 +1,118 @@
 import React, { useState } from 'react';
-import { Box, Container, TextField, Button, Typography, Checkbox, FormControlLabel, IconButton, InputAdornment } from "@mui/material";
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import { Box, Container, Button, Typography, Checkbox, FormControlLabel } from "@mui/material";
+import { parentContainerStyles, centerContainerStyles } from './CustomLoginStyles';
+import InputField from "./components/InputFieldComponent";
 
-const LoginTitle = () => {
-  return (
-    <Typography variant="h4" sx={{ textAlign: 'center' }}>
-      Iniciar Sesión
-    </Typography>
-  );
-}
 
-const LoginDescription = () => {
-  return (
-    <Typography 
-      sx={{
-        textAlign: 'center', 
-        fontSize: '13px', 
-        opacity: 0.6, 
-        mt: 1
-      }}
-    >
-      Bienvenido, por favor inicia sesión para continuar
-    </Typography>
-  );
-}
-
-const InputField = ({ label, type, value, onChange, error, helperText, endAdornment }) => {
-  return (
-    <TextField 
-      required
-      label={label} 
-      type={type} 
-      variant="standard"
-      margin="normal" 
-      size="small" 
-      fullWidth
-      sx={{ m: 1 }}
-      value={value}
-      onChange={onChange}
-      error={error}
-      helperText={helperText}
-      InputProps={{
-        endAdornment: endAdornment
-      }}
-    />
-  )
-}
-
-const LoginForm = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [emailError, setEmailError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handleSubmit = () => {
-    setEmailError(email === '');
-    setPasswordError(password === '');
-
-    if (email && password) {
-      alert(`Email: ${email}, Contraseña: ${password}`);
-    }
-  };
-
-  const toggleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
-  return (
-    <Box>
-      <InputField 
-        label="Correo o Usuario" 
-        type="email" 
-        value={email} 
-        onChange={(e) => {
-          setEmail(e.target.value);
-          setEmailError(false);
-        }}
-        error={emailError}
-        helperText={emailError ? 'Este campo es requerido.' : ''}
-      />
-      <InputField 
-        label="Contraseña" 
-        type={showPassword ? 'text' : 'password'} 
-        value={password} 
-        onChange={(e) => {
-          setPassword(e.target.value);
-          setPasswordError(false);
-        }}
-        error={passwordError}
-        helperText={passwordError ? 'Este campo es requerido.' : ''}
-        endAdornment={
-          <InputAdornment position="end">
-            <IconButton
-              aria-label="toggle password visibility"
-              onClick={toggleShowPassword}
-              edge="end"
-            >
-              {showPassword ? <VisibilityOff /> : <Visibility />}
-            </IconButton>
-          </InputAdornment>
-        }
-      />
-      <Remember />
-      <ButtonLogin onClickHandle={handleSubmit} />
-    </Box>
-  );
-};
-
-const Remember = () => {
+const RememberSection = () => {
   return (
     <FormControlLabel 
-      control={<Checkbox name="remember" />} 
+      control={ <Checkbox name="remember" /> } 
       label="Recuérdame" 
       sx={{ mt: 1, fontSize: '5px' }} 
-      slotProps={{typography: {fontSize: '13px'}}}
+      slotProps={{ typography: { fontSize: '13px' } }}
     />
   )
 }
 
-const ButtonLogin = ({ onClickHandle }) => {
+const ButtonLoginSection = () => {
   return (
      <Button 
-       variant="contained" 
-       color="primary" 
        fullWidth 
-       sx={{ mt: 2 }} 
-       onClick={onClickHandle}
+       type="submit"
+       variant="contained" 
+       color="primary"
+       sx={{mt: 2}}
      >
        Iniciar Sesión
      </Button>
   )
 }
 
-function CustomLogin() {
+const LoginForm = () => {
+  const [formFieldState, setFormFieldState] = useState({
+    userFieldValue: '', 
+    passwordFieldValue: '', 
+    hasErrorUserFieldValue: false, 
+    hasErrorPasswordFieldValue: false  
+  });
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    setFormFieldState(prevState => ({
+      ...prevState, 
+      hasErrorUserFieldValue: formFieldState.userFieldValue === '', 
+      hasErrorPasswordFieldValue: formFieldState.passwordFieldValue === ''
+    }));
+    
+    if (formFieldState.userFieldValue  && formFieldState.passwordFieldValue) {
+      alert(`Email: ${formFieldState.userFieldValue}, Contraseña: ${formFieldState.passwordFieldValue}`);
+    }
+  };
+   
+  const dataInputFields = [
+    {
+      label: 'Correo o Usuario',
+      type: 'text',
+      value: formFieldState.userFieldValue,
+      isError: formFieldState.hasErrorUserFieldValue,
+      onChange: (e) => {
+        setFormFieldState(prevState => ({
+          ...prevState, 
+          userFieldValue: e.target.value, 
+          hasErrorPasswordFieldValue: false,
+        }));
+      }
+    },
+    {
+      label: 'Contraseña',
+      type: 'password',
+      value: formFieldState.passwordFieldValue,
+      isError: formFieldState.hasErrorPasswordFieldValue,
+      onChange: (e) => {
+        setFormFieldState(prevState => ({
+          ...prevState, 
+          passwordFieldValue: e.target.value, 
+          hasErrorPasswordFieldValue: false,
+        }));
+      }
+    },
+  ];
+  
   return (
-    <Box 
-      component="section" 
-      sx={{
-        bgcolor: '#f7f9fa', 
-        minHeight: '100vh', 
-        display: 'flex', 
-        alignItems: 'center', 
-        justifyContent: 'center'
-      }}
-    >
-      <Container 
-        sx={{
-          display: 'flex', 
-          flexDirection: 'column', 
-          justifyContent: 'center', 
-          bgcolor: 'white',
-          boxShadow: 3,
-          borderRadius: 4,
-          width: '100%', 
-          maxWidth: { xs: 350, sm: 400 },
-          boxSizing: 'border-box',
-          p: { xs: 3, sm: 5 },
-        }}
-      >
-        <LoginTitle />
-        <LoginDescription />
+    <form onSubmit={handleSubmit}>
+       {dataInputFields.map((field, index) => (
+         <InputField 
+            key={index} 
+            label={field.label} 
+            type={field.type} 
+            value={field.value} 
+            onChange={field.onChange} 
+            isError={field.isError} 
+            helperText={field.isError ? 'Este campo es requerido.' : ''}
+         />
+       ))}
+      <RememberSection />
+      <ButtonLoginSection onClickHandle={handleSubmit} />
+    </form>
+  );
+};
+  
+function LoginView() {
+  return (
+    <Box component="section" sx={ parentContainerStyles } >
+      <Container sx={ centerContainerStyles } >
+        <Typography variant="h4" sx={{ textAlign: 'center' }} > 
+          Iniciar Sesión
+        </Typography>
+         <Typography sx={{ textAlign: 'center', fontSize: '13px', opacity: 0.6, mt: 1 }} >
+           Bienvenido, por favor inicia sesión para continuar
+         </Typography>
         <LoginForm />
       </Container>
     </Box>
   );
 }
 
-export default CustomLogin;
+export default LoginView;
