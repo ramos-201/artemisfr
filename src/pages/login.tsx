@@ -2,11 +2,10 @@ import {
     Box,
     Button,
     Container,
-    TextField,
     Typography,
-} from "@mui/material";
-import { useState } from "react";
-import InputFieldComponent from "../components/InputFieldComponent";
+} from '@mui/material';
+import { useState } from 'react';
+import InputFieldComponent from '../components/InputFieldComponent';
 
 
 function LoginPage(): JSX.Element {
@@ -18,49 +17,48 @@ function LoginPage(): JSX.Element {
     hasErrorPasswordField: false
   })
   
-  const handleSumit = ( e: React.FormEvent<HTMLFormElement> ): void => {
+  const handleSumit = (e: React.FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     
-    setFormInputFields( prevState => ({
+    setFormInputFields(prevState => ({
       ...prevState,
       hasErrorUserField: formInputFields.UserField === '',
       hasErrorPasswordField: formInputFields.PasswordField === '',
     })) 
 
     if (formInputFields.UserField && formInputFields.PasswordField) {
-        alert("Success...");
+        alert('Success...');
     }
   };
   
   return (
     <Box
-      component="section"
+      component='section'
       sx={{
-        minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        bgcolor: "rgb(244, 244, 244)",
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        bgcolor: 'rgb(244, 244, 244)',
       }}
-    >
-    
+    > 
       <Container
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          textAlign: "center",
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          textAlign: 'center',
           boxShadow: 3,
           borderRadius: 4,
           p: 3,
           maxWidth: {sm: 500},
-          bgcolor: "rgb(255, 255, 255)",
+          bgcolor: 'rgb(255, 255, 255)',
         }}
       >
-        <Typography variant="h4">Iniciar Sesión</Typography>
+        <Typography variant='h4'>Iniciar Sesión</Typography>
         <Typography
           sx={{
-            fontSize: "18px",
+            fontSize: '18px',
             opacity: 0.6,
           }}
         >
@@ -68,30 +66,26 @@ function LoginPage(): JSX.Element {
         </Typography>
 
         <form onSubmit={handleSumit}>
-          <TextField
-            required
-            fullWidth
-            type="text"
+          <InputFieldComponent 
             value={formInputFields.UserField}
-            label="Usuario"
-            variant="standard"
-            sx={{mt: 3}}
-            error={formInputFields.hasErrorUserField}
-            helperText={ formInputFields.hasErrorUserField ? 'Este campo es requerido.' : '' }
-            onChange={ (e) => {
-              setFormInputFields( prevState => ({
+            label='Usuario'
+            type='text'
+            isError={formInputFields.hasErrorUserField}
+            onChange={(e) => {
+              setFormInputFields(prevState => ({
                 ...prevState,
                 UserField: e.target.value,
                 hasErrorUserField: false,
               }))
             }}
           />
-
           <InputFieldComponent 
             value={formInputFields.PasswordField}
+            label='Contraseña'
+            type='password'
             isError={formInputFields.hasErrorPasswordField}
-            onChange={ (e) => {
-              setFormInputFields( prevState => ({
+            onChange={(e) => {
+              setFormInputFields(prevState => ({
                 ...prevState,
                 PasswordField: e.target.value,
                 hasErrorPasswordField: false,
@@ -101,10 +95,10 @@ function LoginPage(): JSX.Element {
 
           <Button
             fullWidth
-            type="submit"
-            variant="contained"
-            color="primary"
-            size="large"
+            type='submit'
+            variant='contained'
+            color='primary'
+            size='large'
             sx={{ mt: 3 }}
           >
             Iniciar sesión
