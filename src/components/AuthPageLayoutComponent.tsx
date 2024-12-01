@@ -1,4 +1,4 @@
-import { Box, Container, Typography } from "@mui/material"
+import { Box, Container, Typography } from '@mui/material'
 
 interface Props {
   titleTG: string;
@@ -9,7 +9,7 @@ interface Props {
 const AuthPageLayoutComponent = ({ titleTG = 'Título por defecto', descriptionTG = 'Descripción por defecto', children }: Props): JSX.Element => {
   return (
     <Box
-      component="section"
+      component='section'
       sx={{
         minHeight: '100vh',
         display: 'flex',
@@ -31,13 +31,13 @@ const AuthPageLayoutComponent = ({ titleTG = 'Título por defecto', descriptionT
           bgcolor: 'rgb(255, 255, 255)',
         }}
       >
-        <Typography variant="h4" fontWeight="bold" mb={2}>
+        <Typography variant='h4' fontWeight='bold' mb={2} sx={{ opacity: 0.6 }}>
           {titleTG}
         </Typography>
         <Typography
           sx={{
             fontSize: '18px',
-            opacity: 0.6,
+            opacity: 0.5,
             marginBottom: 3,
           }}
         >

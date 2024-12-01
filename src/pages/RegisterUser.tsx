@@ -1,9 +1,11 @@
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import AuthPageLayoutComponent from '../components/AuthPageLayoutComponent';
 import InputFieldComponent from '../components/InputFieldComponent';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import AppRoutes from "./../Routes";
 
-function RegisterUser (): JSX.Element {
+function RegisterUserPage (): JSX.Element {
 
   const [formInputFields, setFormInputFields] = useState({
     nameField: '',
@@ -186,8 +188,14 @@ function RegisterUser (): JSX.Element {
          Registrar usuario
        </Button>
      </form>
+     <Typography sx={{
+        opacity: 0.5,
+      }} >
+        ¿Ya tienes una cuenta?{' '}
+        <Link to={AppRoutes.login}>Inicia sesion aquí</Link>
+    </Typography>
  </AuthPageLayoutComponent>
   )
 }
 
-export default RegisterUser;
+export default RegisterUserPage;

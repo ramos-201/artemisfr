@@ -1,8 +1,17 @@
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import LoginPage from './pages/login';
-import RegisterUser from './pages/RegisterUser';
+import RegisterUserPage from './pages/RegisterUser';
+import AppRoutes from "./Routes";
 
 function App(): JSX.Element {
-  return <RegisterUser />
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path={AppRoutes.login} element={<LoginPage />} />
+        <Route path={AppRoutes.registerUser} element={<RegisterUserPage />} />
+      </Routes>
+    </BrowserRouter>
+  )
 }
 
 export default App;

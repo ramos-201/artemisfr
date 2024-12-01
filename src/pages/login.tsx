@@ -1,8 +1,9 @@
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { useState } from 'react';
 import InputFieldComponent from '../components/InputFieldComponent';
 import AuthPageLayoutComponent from '../components/AuthPageLayoutComponent';
-
+import { Link } from 'react-router-dom';
+import AppRoutes from "./../Routes";
 
 function LoginPage(): JSX.Element {
 
@@ -56,7 +57,6 @@ function LoginPage(): JSX.Element {
               }))
             }}
           />
-
           <Button
             fullWidth
             type='submit'
@@ -68,6 +68,12 @@ function LoginPage(): JSX.Element {
             Iniciar sesión
           </Button>
         </form>
+        <Typography sx={{
+           opacity: 0.5,
+        }}>
+          ¿No tienes una cuenta?{' '}
+          <Link to={AppRoutes.registerUser}>Regístrate aquí</Link>
+        </Typography>
     </AuthPageLayoutComponent>
   );
 }
