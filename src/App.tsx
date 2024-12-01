@@ -1,7 +1,8 @@
-import LoginPage from "./pages/login";
+import LoginPage from './pages/login';
+import RegisterUser from './pages/RegisterUser';
 
 function App(): JSX.Element {
-  return <LoginPage />
+  return <RegisterUser />
 }
 
 export default App;

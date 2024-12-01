@@ -1,18 +1,14 @@
-import {
-    Box,
-    Button,
-    Container,
-    Typography,
-} from '@mui/material';
+import { Button } from '@mui/material';
 import { useState } from 'react';
 import InputFieldComponent from '../components/InputFieldComponent';
+import AuthPageLayoutComponent from '../components/AuthPageLayoutComponent';
 
 
 function LoginPage(): JSX.Element {
 
   const [formInputFields, setFormInputFields] = useState({
-    UserField: '',
-    PasswordField: '',
+    userField: '',
+    passwordField: '',
     hasErrorUserField: false,
     hasErrorPasswordField: false
   })
@@ -22,52 +18,20 @@ function LoginPage(): JSX.Element {
     
     setFormInputFields(prevState => ({
       ...prevState,
-      hasErrorUserField: formInputFields.UserField === '',
-      hasErrorPasswordField: formInputFields.PasswordField === '',
+      hasErrorUserField: formInputFields.userField === '',
+      hasErrorPasswordField: formInputFields.passwordField === '',
     })) 
 
-    if (formInputFields.UserField && formInputFields.PasswordField) {
+    if (formInputFields.userField && formInputFields.passwordField) {
         alert('Success...');
     }
   };
   
   return (
-    <Box
-      component='section'
-      sx={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        bgcolor: 'rgb(244, 244, 244)',
-      }}
-    > 
-      <Container
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          textAlign: 'center',
-          boxShadow: 3,
-          borderRadius: 4,
-          p: 3,
-          maxWidth: {sm: 500},
-          bgcolor: 'rgb(255, 255, 255)',
-        }}
-      >
-        <Typography variant='h4'>Iniciar Sesión</Typography>
-        <Typography
-          sx={{
-            fontSize: '18px',
-            opacity: 0.6,
-          }}
-        >
-          Por favor inicia sesión para continuar
-        </Typography>
-
-        <form onSubmit={handleSumit}>
+    <AuthPageLayoutComponent titleTG='Iniciar Sesión' descriptionTG='Por favor inicia sesión para continuar'>
+       <form onSubmit={handleSumit}>
           <InputFieldComponent 
-            value={formInputFields.UserField}
+            value={formInputFields.userField}
             label='Usuario'
             type='text'
             isError={formInputFields.hasErrorUserField}
@@ -80,7 +44,7 @@ function LoginPage(): JSX.Element {
             }}
           />
           <InputFieldComponent 
-            value={formInputFields.PasswordField}
+            value={formInputFields.passwordField}
             label='Contraseña'
             type='password'
             isError={formInputFields.hasErrorPasswordField}
@@ -99,13 +63,12 @@ function LoginPage(): JSX.Element {
             variant='contained'
             color='primary'
             size='large'
-            sx={{ mt: 3 }}
+            sx={{ mt: 5 }}
           >
             Iniciar sesión
           </Button>
         </form>
-      </Container>
-    </Box>
+    </AuthPageLayoutComponent>
   );
 }
 

@@ -7,24 +7,29 @@ interface Props {
   label: string;
   type: string;
   isError: boolean;
+  helperTextError?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export default function InputFieldComponent({ value, label, type, isError, onChange }: Props): JSX.Element {
+export default function InputFieldComponent({ value, label, type, isError, helperTextError = '', onChange }: Props): JSX.Element {
   
   const [isShowPassword, setIsShowPassword] = useState(false);
 
+  if (!helperTextError) {
+    helperTextError = 'Este campo es requerido.'
+  }
+
   return(
     <TextField
-      required
+      
       fullWidth
       type={type === 'password' && isShowPassword ? 'text' : type}
       value={value} 
       label={label}
       variant='standard'
-      sx={{ mt: 3 }}
+      sx={{ mt: 2 }}
       error={isError}
-      helperText={isError ? 'Este campo es requerido.' : ''}
+      helperText={isError ? helperTextError : ''}
       onChange={onChange}
       slotProps={{
         input: {
