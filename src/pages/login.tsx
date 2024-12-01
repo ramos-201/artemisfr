@@ -3,7 +3,7 @@ import { useState } from 'react';
 import InputFieldComponent from '../components/InputFieldComponent';
 import AuthPageLayoutComponent from '../components/AuthPageLayoutComponent';
 import { Link } from 'react-router-dom';
-import AppRoutes from "./../Routes";
+import AppRoutes from './../Routes';
 
 function LoginPage(): JSX.Element {
 
@@ -39,7 +39,7 @@ function LoginPage(): JSX.Element {
             onChange={(e) => {
               setFormInputFields(prevState => ({
                 ...prevState,
-                UserField: e.target.value,
+                userField: e.target.value,
                 hasErrorUserField: false,
               }))
             }}
@@ -52,28 +52,16 @@ function LoginPage(): JSX.Element {
             onChange={(e) => {
               setFormInputFields(prevState => ({
                 ...prevState,
-                PasswordField: e.target.value,
+                passwordField: e.target.value,
                 hasErrorPasswordField: false,
               }))
             }}
           />
-          <Button
-            fullWidth
-            type='submit'
-            variant='contained'
-            color='primary'
-            size='large'
-            sx={{ mt: 5 }}
-          >
+          <Button fullWidth type='submit' variant='contained' color='primary' size='large' sx={{ mt: 5 }} >
             Iniciar sesión
           </Button>
         </form>
-        <Typography sx={{
-           opacity: 0.5,
-        }}>
-          ¿No tienes una cuenta?{' '}
-          <Link to={AppRoutes.registerUser}>Regístrate aquí</Link>
-        </Typography>
+        <Typography sx={{ opacity: 0.5, }} >¿No tienes una cuenta?{' '}<Link to={AppRoutes.registerUser}>Regístrate aquí</Link></Typography>
     </AuthPageLayoutComponent>
   );
 }

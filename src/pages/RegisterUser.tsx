@@ -3,7 +3,7 @@ import AuthPageLayoutComponent from '../components/AuthPageLayoutComponent';
 import InputFieldComponent from '../components/InputFieldComponent';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import AppRoutes from "./../Routes";
+import AppRoutes from './../Routes';
 
 function RegisterUserPage (): JSX.Element {
 
@@ -177,23 +177,11 @@ function RegisterUserPage (): JSX.Element {
             }))
           }}
         />
-        <Button
-         fullWidth
-         type='submit'
-         variant='contained'
-         color='primary'
-         size='large'
-         sx={{ mt: 3 }}
-       >
-         Registrar usuario
-       </Button>
-     </form>
-     <Typography sx={{
-        opacity: 0.5,
-      }} >
-        ¿Ya tienes una cuenta?{' '}
-        <Link to={AppRoutes.login}>Inicia sesion aquí</Link>
-    </Typography>
+        <Button fullWidth type='submit' variant='contained' color='primary' size='large' sx={{ mt: 3 }} >
+          Registrar usuario
+        </Button>
+      </form>
+      <Typography sx={{ opacity: 0.5 }} >¿Ya tienes una cuenta?{' '} <Link to={AppRoutes.login}>Inicia sesion aquí</Link></Typography>
  </AuthPageLayoutComponent>
   )
 }
